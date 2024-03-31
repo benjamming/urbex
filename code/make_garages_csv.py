@@ -57,9 +57,11 @@ def ARC_gis_format(df, file_path):
     formatted.to_csv(file_path)
 
 def dataframe_store(df, file_path):
-    df.ri
+    formatted = df[['facility_name', 'address','levels','objectid','geometry']]
+    formatted.to_csv(file_path)
 
 if __name__ == "__main__":
     #garages = main(raw_data)
     #garages.to_csv(csv_path)
-    ARC_gis_format(clean(raw_data), 'data/clean/parking_garages_arc.csv')
+    #ARC_gis_format(clean(raw_data), 'data/clean/parking_garages_arc.csv')
+    dataframe_store(clean(raw_data), csv_path)
