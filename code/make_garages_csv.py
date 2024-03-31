@@ -39,7 +39,7 @@ def select_garages(df):
     # drop records for (boring) surface lots
     return df[df['type'] == "G"]
 
-def main(data_path):
+def clean(data_path):
     assert path.exists(data_path)
     df = geopandas.read_file(data_path)
     df = drop_columns(df)
@@ -49,8 +49,17 @@ def main(data_path):
     # All the rows should represent only parking garages
 
     # rearrange the column order to make it more readable
-    return df[['facility_name', 'address', 'levels', 'geometry', 'objectid']]
+    return df
+
+def ARC_gis_format(df, file_path):
+    formatted = df.rename({'address':'Address'}, axis=1)
+    formatted = formatted[['Address', 'facility_name', 'levels', 'objectid', 'geometry']]
+    formatted.to_csv(file_path)
+
+def dataframe_store(df, file_path):
+    df.ri
 
 if __name__ == "__main__":
-    garages = main(raw_data)
-    garages.to_csv(csv_path)
+    #garages = main(raw_data)
+    #garages.to_csv(csv_path)
+    ARC_gis_format(clean(raw_data), 'data/clean/parking_garages_arc.csv')
